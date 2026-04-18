@@ -40,7 +40,7 @@ jobs:
           VITE_BASE: /newsite/
         working-directory: .
 
-      # --- Studio site (new design) ---
+      # --- Studio site (elegant reiteration) ---
       - name: Install studio deps
         run: npm ci
         working-directory: ./studio
@@ -51,10 +51,22 @@ jobs:
           VITE_BASE: /newsite/studio/
         working-directory: ./studio
 
+      # --- Cinema site (Rockstar-inspired) ---
+      - name: Install cinema deps
+        run: npm ci
+        working-directory: ./cinema
+
+      - name: Build cinema
+        run: npm run build
+        env:
+          VITE_BASE: /newsite/cinema/
+        working-directory: ./cinema
+
       - name: Assemble final dist
         run: |
-          mkdir -p dist/studio
+          mkdir -p dist/studio dist/cinema
           cp -r studio/dist/* dist/studio/
+          cp -r cinema/dist/* dist/cinema/
           cp dist/index.html dist/404.html
 
       - uses: actions/upload-pages-artifact@v3
